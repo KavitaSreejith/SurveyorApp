@@ -1,5 +1,5 @@
 import React from 'react'
-import { waitForElement } from '@testing-library/react'
+import { waitFor } from '@testing-library/react'
 import SurveyResult from './SurveyResult'
 import { renderWithRedux, mockStore } from '../../redux/testHelpers'
 import { updateResult } from '../../actions/surveryResultAction'
@@ -14,7 +14,7 @@ test('renders SurveyResult component', async () => {
             id: '1',
         },
     }
-    const { getByTestId, getByText } = renderWithRedux(
+    const { getByTestId } = renderWithRedux(
         <SurveyResult
             currentResult={mockStore.currentResult}
             prefetching={prefetching}
@@ -25,7 +25,7 @@ test('renders SurveyResult component', async () => {
     )
     expect(getByTestId('loading-component')).toHaveTextContent('Loading')
     try {
-        const resolvedNode = await waitForElement(() =>
+        const resolvedNode = await waitFor(() =>
             getByTestId('result-component')
         )
         expect(resolvedNode).toBeTruthy()
